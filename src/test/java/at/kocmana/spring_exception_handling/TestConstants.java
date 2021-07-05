@@ -8,6 +8,7 @@ public class TestConstants {
 
   public static final String EXPECTED_EXCEPTION_MESSAGE = "Wrapped Exception";
 
-  public static final String EXPECTED_RESPONSE_MESSAGE = "HttpClientErrorException";
+  public static final String EXPECTED_RESPONSE_MESSAGE =
+      "Exception handler method for TestException was injected with exception of type HttpClientErrorException";
 
 }

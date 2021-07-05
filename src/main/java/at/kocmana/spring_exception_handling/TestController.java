@@ -16,11 +16,11 @@ public class TestController {
   }
 
   @GetMapping("/test")
-  public ResponseEntity<Void> causeException() {
+  public ResponseEntity<Void> requestTestResource() {
 
     testService.causeException();
 
-    return ResponseEntity.ok().build();
+    return ResponseEntity.noContent().build();
   }
 
 }

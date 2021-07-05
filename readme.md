@@ -2,7 +2,7 @@
 
 This project aims to showcase an unexpected behavior of Spring Boot when dealing with exceptions:
 After the following code:
-```
+```java
     try {
       throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
     } catch (HttpClientErrorException exception) {
@@ -12,7 +12,9 @@ After the following code:
 both instances of `HttpClientErrorException` and `TestException` remain available in the application context.
 
 Consequently, Spring `ControllerAdvice` classes can still have methods where the actually already caught `HttpClientErrorException` is injected:
-```
+```java
   @ExceptionHandler(TestException.class)
-  public ResponseEntity<ErrorResponse> catchTestException(HttpStatusCodeException exception) {
+  public ResponseEntity<ErrorResponse> catchTestException(HttpStatusCodeException exception){
+      . . .
+    }
 ```

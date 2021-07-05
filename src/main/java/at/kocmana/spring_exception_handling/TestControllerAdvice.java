@@ -13,21 +13,26 @@ public class TestControllerAdvice {
   @ExceptionHandler(TestException.class)
   public ResponseEntity<ErrorResponse> catchTestException(HttpStatusCodeException exception) {
 
-    return createErrorResponseEntity(exception);
+    return createErrorResponseEntity(TestException.class, exception.getClass());
   }
 
   @ExceptionHandler(HttpStatusCodeException.class)
   public ResponseEntity<ErrorResponse> catchHttpStatusCodeException(HttpStatusCodeException exception) {
 
-    return createErrorResponseEntity(exception);
+    return createErrorResponseEntity(HttpStatusCodeException.class, exception.getClass());
   }
 
+  private ResponseEntity<ErrorResponse> createErrorResponseEntity(Class<? extends Exception> exceptionHandlerType,
+                                                                  Class<? extends Exception> injectedException) {
 
-  private ResponseEntity<ErrorResponse> createErrorResponseEntity(HttpStatusCodeException exception) {
-    String errorMessage = exception.getClass().getSimpleName();
+    var exceptionClassName = exceptionHandlerType.getSimpleName();
+    var injectedExceptionClassName = injectedException.getSimpleName();
+
+    var responseMessage = String.format("Exception handler method for %s was injected with exception of type %s",
+        exceptionClassName, injectedExceptionClassName);
 
     return ResponseEntity.badRequest()
-        .body(ErrorResponse.withMessage(errorMessage));
+        .body(ErrorResponse.withMessage(responseMessage));
   }
 
 }
